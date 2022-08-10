@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './App.css';
 import { Routes, Route } from "react-router-dom";
 import { Header, Footer } from "./components/layout/Exports.js";
@@ -7,13 +7,15 @@ import { Driver, Student, School, ProtectedRoutes }  from "./components/logged_a
 import BabyMeLeva from "./components/audio/soundtrack.mp3";
 
 export default function App() {
+  const [token, setToken] = useState();
+  console.log(token);
   return (
     <div className="d-flex flex-column justify-content-between h-100 p-0 text-white">
       <Header />
       <main>
           <Routes>
             <Route path="/" element={<Home />} exact />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login token={token} setToken={setToken} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/register/driver" element={<RegisterDriver />} />
             <Route path="/register/student" element={<RegisterStudent />} />

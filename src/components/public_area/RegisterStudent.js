@@ -21,7 +21,7 @@ export default function RegisterStudent() {
     const handleSubmit = async(evt) => {
         evt.preventDefault();
         evt.stopPropagation();
-        console.log(formData.select_institution);
+        if(institutionID === undefined) return; 
         const response = await axios({
             url: `http://localhost:3000/signup_student/${institutionID}`,
             method: "POST",
@@ -38,13 +38,15 @@ export default function RegisterStudent() {
                 <option value={elem.id} key={elem.id}>{elem.name}</option>
             ));
             setInstitutions(institutionsAvailable);
+            setInstitutionID(response.data.data[0].id);
         }
         getInstitutionsAvailable();
     }, []);
+    
     return (
         <div className="container row px-4 py-3 mx-auto">
             <div className="col-sm-10 col-md-8 col-lg-6 mx-auto">
-                <form  onSubmit={handleSubmit} className="p-4 p-md-5 bg-light rounded"
+                <form onSubmit={handleSubmit} className="p-4 p-md-5 bg-light rounded"
                     id="form-register-student">
                     <div className="form-floating text-muted mb-3">
                         <input type="text" className="form-control form-control-lg" id="name" name="name"

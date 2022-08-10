@@ -13,13 +13,18 @@ export default function RegisterInstitution() {
     const handleSubmit = async(evt) => {
         evt.preventDefault();
         evt.stopPropagation();
-        const response = await axios({
-            url: "http://localhost:3000/signup_institution/",
-            method: "POST",
-            data: formData,
-            headers: { "Content-type": "application/json; charset=UTF-8" }
-        });
-        console.log(response.data);
+        try {
+            const response = await axios({
+                url: "http://localhost:3000/signup_institution/",
+                method: "POST",
+                data: formData,
+                headers: { "Content-type": "application/json; charset=UTF-8" }
+            });
+            if(response.data.data.has_error) return;
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
     return (
         <div className="container row px-4 py-3 mx-auto">
